@@ -1,3 +1,5 @@
+- [ ] Add item to shopping cart
+- [ ] Complete the selling
 - [ ] Update Product
 - [ ] Update Customer
 - [ ] Register Product by list
