@@ -1,6 +1,6 @@
-const customer = require('./DAO/customerDAO')
-const product = require('./DAO/productDAO')
 const customerUI = require('./UI/customer')
+const productUI = require('./UI/product')
+const stockUI = require('./UI/stock')
 
 function menu(opt) {
   switch (opt) {
@@ -24,7 +24,7 @@ function menu(opt) {
               break;
             case 3: console.log("Customer updated");
               break;
-            case 4: customer.listCustomers();
+            case 4: customerUI.listCustomers();
               break;
           }
           foundCorrectNumber = true;
@@ -47,13 +47,40 @@ function menu(opt) {
 
         if (opt == 1 || opt == 2 || opt == 3 || opt == 4) {
           switch (opt) {
-            case 1: console.log("Product registered");
+            case 1: productUI.registerProduct();
               break;
-            case 2: console.log("Product deleted");
+            case 2: productUI.deleteProduct();
               break;
             case 3: console.log("Product updated");
               break;
-            case 4: product.listProducts();
+            case 4: productUI.listProducts();
+              break;
+          }
+          foundCorrectNumber = true;
+        } else {
+          console.log('Invalid option!');
+        }
+      }
+      break;
+    case 3:
+      prompt = require('prompt-sync')({ sigint: true });
+
+      foundCorrectNumber = false;
+
+      while (!foundCorrectNumber) {
+        console.log('-------------------------------------------');
+        console.log('\n1-Add Product \n2-Sell \n3-Shopping Cart');
+        let opt = prompt('> ');
+
+        opt = Number(opt);
+
+        if (opt == 1 || opt == 2 || opt == 3 || opt == 4) {
+          switch (opt) {
+            case 1: stockUI.addProduct();
+              break;
+            case 2: console.log('Sold!');
+              break;
+            case 3: stockUI.listCart();
               break;
           }
           foundCorrectNumber = true;

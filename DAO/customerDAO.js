@@ -16,10 +16,10 @@ function listCustomers() {
   conn.query("SELECT * FROM customer", function (err, result) {
     if (err) throw err;
 
-    console.log("");
+    console.log('-------------------------------------------');
 
     if (result.length == 0) {
-
+      console.log("There are no customers");
     }
 
     for (var i = 0; i < result.length; i++) {
