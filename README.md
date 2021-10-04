@@ -1,6 +1,6 @@
-- [] Update Product
-- [] Update Customer
-- [] Register Product by list
+- [ ] Update Product
+- [ ] Update Customer
+- [ ] Register Product by list
 
 - [x] Register Customer
 - [x] Register Product
