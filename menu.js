@@ -78,7 +78,7 @@ function menu(opt) {
           switch (opt) {
             case 1: stockUI.addProduct();
               break;
-            case 2: console.log('Sold!');
+            case 2: stockUI.finishSell();
               break;
             case 3: stockUI.listCart();
               break;

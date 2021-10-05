@@ -23,8 +23,6 @@ function listProducts() {
       console.log('-------------------------------------------');
     }
 
-
-
     for (var i = 0; i < result.length; i++) {
       let id = result[i].id;
       let name = result[i].name;

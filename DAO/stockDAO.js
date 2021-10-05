@@ -23,15 +23,22 @@ function listCart() {
   });
 }
 
+function finishSell() {
+  conn.query('TRUNCATE TABLE shopping_cart;', function (err) {
+    if (err) throw err;
+
+    console.log('Sold!')
+  });
+}
+
 function addProduct(code, quantity) {
-
-
   const sql = 'SELECT * FROM shopping_cart WHERE code = ?';
   const values = [code];
   conn.query(sql, values, function (err, result) {
     if (err) throw err;
 
     if (result.length == 0) {
+
       const sql = 'SELECT * FROM stock WHERE code = ?';
       const values = [code];
       conn.query(sql, values, function (err, result) {
@@ -64,34 +71,14 @@ function addProduct(code, quantity) {
           console.log('There are no products with code ' + code + '!');
           console.log('-------------------------------------------');
         }
+        quantity = parseInt(quantity) + parseInt(result[0].quantity);
 
-        let name = result[0].name;
-        let price = result[0].price;
-        price += quantity * price;
-        quantity += result[0].quantity;
-
-        const sql = 'UPDATE shopping_cart ';
-        const values = [code, name, price, quantity];
+        const sql = 'UPDATE shopping_cart SET quantity = ? WHERE code = ?';
+        const values = [quantity, code];
         return conn.query(sql, values);
       });
-
     }
   });
-
-  //Checar se o produto está no carrinho {
-
-  //Se não estiver {
-
-  //Puxar os dados do produto no estoque{
-
-  //Inserir no carrinho cod, nome, preco, quantidade;
-
-  //Se estiver {
-
-  //Puxar os dados do produto no carrinho{
-
-  ///Atualizar no carrinho preco e quantidade;
-
 }
 
-module.exports = { addProduct, listCart }
+module.exports = { addProduct, finishSell, listCart }

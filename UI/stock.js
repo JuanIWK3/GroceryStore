@@ -14,8 +14,12 @@ function addProduct() {
   console.log('Product added to shopping cart!');
 }
 
+function finishSell() {
+  stockDAO.finishSell();
+}
+
 function listCart() {
   stockDAO.listCart();
 }
 
-module.exports = { addProduct, listCart };
+module.exports = { addProduct, finishSell, listCart };
