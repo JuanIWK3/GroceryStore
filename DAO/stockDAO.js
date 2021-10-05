@@ -24,10 +24,27 @@ function listCart() {
 }
 
 function finishSell() {
+  // 
+  conn.query('SELECT * FROM shopping_cart', function (err, result) {
+    if (err) throw err;
+    let totalTotal = 0;
+
+    for (var i = 0; i < result.length; i++) {
+      let name = result[i].name;
+      let price = result[i].price;
+      let quantity = result[i].quantity;
+      let total = result[i].total;
+      totalTotal += total;
+
+      console.log('|  ' + name + ' |  $ ' + price + ' |  ' + quantity + ' un' + ' |  $' + total);
+    }
+    console.log('-------------------------------------------');
+    console.log('Total = $ ' + totalTotal);
+    console.log('-------------------------------------------');
+  });
+  // Clean the shopping cart
   conn.query('TRUNCATE TABLE shopping_cart;', function (err) {
     if (err) throw err;
-
-    console.log('Sold!')
   });
 }
 
@@ -52,7 +69,6 @@ function addProduct(code, quantity) {
 
         let name = result[0].name;
         let price = result[0].price;
-        price += quantity * price;
 
         const sql = 'INSERT INTO shopping_cart (code, name, price, quantity) VALUES (?, ?, ?, ?)';
         const values = [code, name, price, quantity];
@@ -75,6 +91,10 @@ function addProduct(code, quantity) {
 
         const sql = 'UPDATE shopping_cart SET quantity = ? WHERE code = ?';
         const values = [quantity, code];
+        conn.query(sql, values);
+
+        sql = 'UPDATE shopping_cart SET quantity = ? WHERE code = ?';
+        values = [quantity, code];
         return conn.query(sql, values);
       });
     }
